@@ -1,0 +1,37 @@
+ body{
+            background-image:
+                url("https://wordservewatercooler.files.wordpress.com/2014/09/full-moon-in-night-sky-over-water.jpg");
+            background-size: cover;
+        }
+        
+        
+        table{
+            background-color: rbg(124, 211, 247);
+            border:1px solid black; /* add border */
+            font-size: 16px: /* change font sixze */ 
+        }
+    
+        td{
+            border: 1px solid cyan;
+            padding: 5px;
+            background-color: lightcyan;
+            
+           
+        }
+        a:hover{
+            color:mintcream;
+            text-decoration: none;
+            
+        }
+        
+        p{
+            width: 10%;
+            padding: 15px;
+            background-color:skyblue;
+        }
+        
+        .narrow{
+            width: 20%; 
+            font-family: cursive;
+            background-color: skyblue;
+        }
