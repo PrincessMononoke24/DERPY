@@ -27,12 +27,12 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 function preload() {
     game.load.image('sky', 'assets/kitchen.png');
-    game.load.image('ground', 'assets/purple.jpg');
+    game.load.image('ground', 'assets/stick2-5.png');
     game.load.image('star', 'assets/sourCream.png');
     game.load.image('butter', 'assets/BUTTER.png');
     game.load.image('milk', 'assets/MILK.png');
     game.load.image('dia', 'assets/dia.png');
-    game.load.spritesheet('dude', 'assets/Potato.png', 45, 45, 9);
+    game.load.spritesheet('dude', 'assets/Potato.png', 45, 45, 20);
     game.load.spritesheet('evil', 'assets/EvilPotato.png', 45, 45, 9);
     
 	
@@ -84,7 +84,7 @@ function create() {
     
     // The player and its settings
     player = game.add.sprite(30, game.world.height - 75, 'dude');
-    evilplayer = game.add.sprite(760, game.world.height - 575, 'evil');
+    evilplayer = game.add.sprite(760, game.world.height - 400, 'evil');
     //  We need to enable physics on the player
     game.physics.arcade.enable(player);
     game.physics.arcade.enable(evilplayer);
@@ -192,6 +192,12 @@ function update() {
         player.body.velocity.x = 150;
         player.animations.play('right');
     }
+    else if (cursors.down.isDown)
+    {
+        //  Move to the right
+        player.body.velocity.y = 200;
+        
+    }
     else
     {
         //  Stand still
@@ -206,10 +212,13 @@ function update() {
     }
     
 // ***************************************
+    
+// Probability of enemy moving
     if (cursors.left.isDown)
     {
         //  Move to the left
         evilplayer.body.velocity.x = 150;
+            
         evilplayer.animations.play('right');
     }
     else if (cursors.right.isDown)
@@ -231,13 +240,16 @@ function update() {
         evilplayer.body.velocity.y = -350;
     }
 }
+  
 function killPlayer (player, evilplayer) {
     
-    // Kills the player
-    evilplayer.kill();
+    player.kill();
+    
+    platforms.forEach(function(platform) {
+        platform.body.immovable = false;
+    });
     
 }
-    
 function collectStar (player, star) {
     
     // Removes the star from the screen
@@ -245,6 +257,8 @@ function collectStar (player, star) {
     //  Add and update the score
     score += 3;
     scoreText.text = 'Score: ' + score;
+    
+    timer + 10;
 }
 	
 function collectButter (player, butter) {
@@ -268,7 +282,7 @@ function collectDia (player, dia) {
     
     // Removes the diamond from the screen
     dia.kill();
-    player.body.gravity.y = 300;
+    player.body.gravity.y = -300;
 }
 function render() {
 	
