@@ -47,7 +47,7 @@ var music;
 var interval;
 var timerText;
 var x;
-var timer = 4;
+var timer;
     
 var doors;
 var stars;
@@ -121,7 +121,7 @@ function create() {
     butters = game.add.group();
     butters.enableBody = true;
     
-    var butterLocations = [[300, 300]];
+    var butterLocations = [[300, 270], [500, 270], [400, 370]];
     
     for (var i = 0; i < butterLocations.length; i++) {
         var butter = butters.create(butterLocations[i][0], butterLocations[i][1], 'butter');
@@ -133,7 +133,7 @@ function create() {
     milks = game.add.group();
     milks.enableBody = true;
     
-    var milkLocations = [[500, 300]];
+    var milkLocations = [[450, 270], [40, 270]];
     
     for (var i = 0; i < milkLocations.length; i++) {
         var milk = milks.create(milkLocations[i][0], milkLocations[i][1], 'milk');
@@ -255,7 +255,7 @@ function update() {
     }
 }
   
-function killPlayer (player, evilplayer) {
+function killPlayer () {
     
     player.kill();
     evilplayer.kill();
@@ -264,11 +264,14 @@ function killPlayer (player, evilplayer) {
         platform.body.immovable = false;
     });
     
+    timer = 0;
 }
 function exitDoor (player, door) {
     
     // Removes the star from the screen
     player.kill();
+    
+    timer = 0;
 }
     
 function collectStar (player, star) {
@@ -276,7 +279,7 @@ function collectStar (player, star) {
     // Removes the star from the screen
     star.kill();
     //  Add and update the score
-    score += 3;
+    score += 10;
     scoreText.text = 'Score: ' + score;
     
     timer + 10;
@@ -310,35 +313,19 @@ function render() {
     game.debug.soundInfo(music, 20, 32);
 }
 function startTimer() {
-    timer = 4;
+    timer = 120;
     interval = setInterval(function(){
-    timerText.text = timer--;
+    if (timer >= 0) {
+        timerText.text = timer.toString();
+    }
+    else {
+        killPlayer();
+        clearInterval(timer);
+    }
+    timer--;
     }, 1000);
 }
-    
 startTimer();
-if (timer == 0) {
-    killPlayer();
-}
-    
-/*
-var seconds = 4;
-// Update the count down every 1 second
- var x = setInterval(function() {
-    // Get todays date and time
-    var now = new Date().getTime();
-    
-    // Output the result in an element with id="demo"
-    document.getElementById("demo").innerHTML = seconds + "s ";
-    
-    seconds--;
-    
-    // If the count down is over, write some text 
-    if (seconds == 0) {
-        
-        killPlayer();
-    }
-}, 1000); */
     
 </script>
 	
