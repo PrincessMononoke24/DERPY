@@ -27,6 +27,7 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 function preload() {
     game.load.image('sky', 'assets/kitchen.png');
+	game.load.image('GameOver', 'assets/GameOver.gif');
     game.load.image('ground', 'assets/blue.jpg');
     game.load.image('star', 'assets/sourCream.png');
     game.load.image('butter', 'assets/BUTTER.png');
@@ -56,6 +57,7 @@ var milks;
 var dias;
 var score = 0;
 var scoreText;
+var winText;
 function create() {
 	
     music = game.add.audio('aud');
@@ -109,7 +111,7 @@ function create() {
     stars = game.add.group();
     stars.enableBody = true;
     
-    var starLocations = [[740, 340]];
+    var starLocations = [[750, 0]];
     
     for (var i = 0; i < starLocations.length; i++) {
         var star = stars.create(starLocations[i][0], starLocations[i][1], 'star');
@@ -265,6 +267,10 @@ function killPlayer () {
     });
     
     timer = 0;
+    
+    setTimeout(function() { game.add.sprite(0, 0, "GameOver"); }, 3000);
+    setTimeout(function() { location.reload(); }, 6000);
+        
 }
 function exitDoor (player, door) {
     
@@ -272,6 +278,9 @@ function exitDoor (player, door) {
     player.kill();
     
     timer = 0;
+    
+    winText = game.add.text(360, 300, 'You Win!', { fontSize: '32px', fill: '#00b5ff'});
+    setTimeout(function() { location.reload(); }, 3000);
 }
     
 function collectStar (player, star) {
@@ -282,7 +291,7 @@ function collectStar (player, star) {
     score += 10;
     scoreText.text = 'Score: ' + score;
     
-    timer + 10;
+    timer += 10;
 }
 	
 function collectButter (player, butter) {
@@ -307,13 +316,18 @@ function collectDia (player, dia) {
     // Removes the diamond from the screen
     dia.kill();
     player.body.gravity.y = -300;
+    
+    doors.forEach(function(door) {
+        door.body.position.x = 730;
+        door.body.position.y = 330;
+    });
 }
 function render() {
 	
     game.debug.soundInfo(music, 20, 32);
 }
 function startTimer() {
-    timer = 120;
+    timer = 45;
     interval = setInterval(function(){
     if (timer >= 0) {
         timerText.text = timer.toString();
@@ -326,7 +340,6 @@ function startTimer() {
     }, 1000);
 }
 startTimer();
-    
 </script>
 	
 </body>
