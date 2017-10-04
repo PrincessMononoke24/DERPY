@@ -1,0 +1,43 @@
+body{  
+    background-image:
+                url("http://wlpapers.com/images/pretty-cloud-1.jpg");
+            background-size: cover;
+}
+  
+h1 {
+  color: #6026ff;
+  transition: color 2s;
+}
+
+h2 {
+  color: #0547ff;
+    transition: color 2s;
+}
+
+h3{
+    color: #0547ff;
+}
+
+h4{
+color: #cc05ff;
+}
+
+h1:hover {
+  color: #60daff;
+}
+
+h2:hover {
+    color: #f2c9cd;
+}
+
+h3:hover {
+    color: #ce3516;
+    transition: color 2s;
+}
+
+h4:hover {
+    color: #42e8f4;
+    transition: color 2s; 
+}
+
+
