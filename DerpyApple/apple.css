@@ -1,0 +1,21 @@
+body{ 
+    background: #000000; 
+}
+  
+h1 {
+  color: #ff0000;
+  transition: color 2s;
+}
+
+h2 {
+  color: #ff0000;
+    transition: color 2s;
+}
+
+h1:hover {
+  color: #cc4f02;
+}
+
+h2:hover {
+    color: #a00b0b;
+}
